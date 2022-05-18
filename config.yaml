@@ -1,0 +1,59 @@
+# PyAudio setups
+n_channel: 1
+rate: 16000
+chunk_size: 160
+buffer_size: 4
+
+# Misc
+# root_path: /home/xianda/OneDrive/UC-Davis/Research Project/src
+root_path: C:/OneDrive/UC-Davis/Research Project/src
+file_name: DR1_FCJF0_SA1
+wav_path: ${root_path}/data/timit/train/${file_name}.WAV
+phn_path: ${root_path}/data/timit/train/${file_name}.PHN
+dataset_path: ${root_path}/data/timit
+
+phn_reduction_dict_path: ${root_path}/dicts/phoneme_39_dict.json
+phn_idx_dict_path: ${root_path}/dicts/phn_to_idx.json
+phn_cat_dict_path: ${root_path}/dicts/phn_cat_reduced.json
+
+output_path: ./results
+ckpt_path: ${output_path}/model_${run_name}.pt # path to a pre-trained model, if provided, training will resume from that point
+report_path: ${output_path}/train_${run_name}.csv
+
+# Execution setups
+device: 'cuda'
+device_id: 0
+dev_run: False
+dev_run_size: 50
+re_train: True # if check point file exists, continue training on the saved model
+run_name: 0 # run name
+
+# Data processing parameters
+num_workers: 8
+batch_size: 32
+
+n_mfcc: 13
+n_fft: ${chunk_size}
+hop_length: 80
+n_mels: 40
+n_classes: 39
+
+# Hyper parameters
+lr: 0.001 # initial learning rate
+epochs: 20 # upper epoch limit
+val_ratio: 0.1 # precentage of validation from train
+
+z_dim: 16
+k_1_h: 4
+k_1_w: 2
+k_2_h: 4
+k_2_w: 2
+
+fc_input: 1568
+fc_hidden_1: 800
+fc_hidden_2: 200
+
+loss_if_avg: True
+true_label_weight: 0.8
+
+
