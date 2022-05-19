@@ -105,6 +105,8 @@ class TimitDataset(Dataset):
                 else:
                     spect = audio[(i - buffer_size) * chunk_size:i * chunk_size]
                 spect_mfcc = librosa.feature.mfcc(spect.numpy(), sr, n_mfcc=self.cfg.n_mfcc, n_fft=self.cfg.n_fft, hop_length=self.cfg.hop_length, n_mels=self.cfg.n_mels)
+                # spect_mfcc_weighted = spect_mfcc * np.arange(0.1, 1, 0.1)
+                # spect_seq.append(spect_mfcc_weighted[np.newaxis, :])
                 spect_seq.append(spect_mfcc[np.newaxis, :])
             return np.array(spect_seq)
 

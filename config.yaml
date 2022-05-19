@@ -7,7 +7,7 @@ buffer_size: 4
 # Misc
 # root_path: /home/xianda/OneDrive/UC-Davis/Research Project/src
 root_path: C:/OneDrive/UC-Davis/Research Project/src
-file_name: DR1_FCJF0_SA1
+file_name: DR5_MEGJ0_SA1
 wav_path: ${root_path}/data/timit/train/${file_name}.WAV
 phn_path: ${root_path}/data/timit/train/${file_name}.PHN
 dataset_path: ${root_path}/data/timit
@@ -31,6 +31,7 @@ run_name: 0 # run name
 # Data processing parameters
 num_workers: 8
 batch_size: 32
+rnn_buffer_size: 8
 
 n_mfcc: 13
 n_fft: ${chunk_size}
@@ -38,11 +39,14 @@ hop_length: 80
 n_mels: 40
 n_classes: 39
 
-# Hyper parameters
+# Training Hyper parameters
 lr: 0.001 # initial learning rate
 epochs: 20 # upper epoch limit
 val_ratio: 0.1 # precentage of validation from train
+loss_if_avg: True
+true_label_weight: 0.8
 
+# CNN parameters
 z_dim: 16
 k_1_h: 4
 k_1_w: 2
@@ -53,7 +57,8 @@ fc_input: 1568
 fc_hidden_1: 800
 fc_hidden_2: 200
 
-loss_if_avg: True
-true_label_weight: 0.8
+# RNN parameters
+rnn_hidden: 100
+rnn_dropout: 0.3
 
 
