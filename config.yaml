@@ -12,9 +12,9 @@ wav_path: ${root_path}/data/timit/train/${file_name}.WAV
 phn_path: ${root_path}/data/timit/train/${file_name}.PHN
 dataset_path: ${root_path}/data/timit
 
-phn_reduction_dict_path: ${root_path}/dicts/phoneme_39_dict.json
-phn_idx_dict_path: ${root_path}/dicts/phn_to_idx.json
-phn_cat_dict_path: ${root_path}/dicts/phn_cat_reduced.json
+phn_reduction_dict_path: ./dicts/phoneme_39_dict.json
+phn_idx_dict_path: ./dicts/phn_to_idx.json
+phn_cat_dict_path: ./dicts/phn_cat_reduced.json
 
 output_path: ./results
 ckpt_path: ${output_path}/model_${run_name}.pt # path to a pre-trained model, if provided, training will resume from that point
@@ -31,7 +31,6 @@ run_name: 0 # run name
 # Data processing parameters
 num_workers: 8
 batch_size: 32
-rnn_buffer_size: 8
 
 n_mfcc: 13
 n_fft: ${chunk_size}
@@ -41,24 +40,31 @@ n_classes: 39
 
 # Training Hyper parameters
 lr: 0.001 # initial learning rate
-epochs: 20 # upper epoch limit
+epochs: 10 # upper epoch limit
 val_ratio: 0.1 # precentage of validation from train
 loss_if_avg: True
 true_label_weight: 0.8
 
-# CNN parameters
-z_dim: 16
+# Model parameters
+input_dim: 9
+
+num_attention_head: 3
+
+z_dim: 8
 k_1_h: 4
 k_1_w: 2
 k_2_h: 4
 k_2_w: 2
 
-fc_input: 1568
-fc_hidden_1: 800
-fc_hidden_2: 200
+fc_1_input: 784
+fc_1_hidden_1: 400
+fc_1_hidden_2: 200
 
-# RNN parameters
-rnn_hidden: 100
-rnn_dropout: 0.3
+rnn_hidden: 400
+
+fc_2_input: 400
+fc_2_hidden_1: 200
+fc_2_hidden_2: 100
+fc_2_dropout: 0.3
 
 

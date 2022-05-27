@@ -105,9 +105,7 @@ class TimitDataset(Dataset):
                 else:
                     spect = audio[(i - buffer_size) * chunk_size:i * chunk_size]
                 spect_mfcc = librosa.feature.mfcc(spect.numpy(), sr, n_mfcc=self.cfg.n_mfcc, n_fft=self.cfg.n_fft, hop_length=self.cfg.hop_length, n_mels=self.cfg.n_mels)
-                # spect_mfcc_weighted = spect_mfcc * np.arange(0.1, 1, 0.1)
-                # spect_seq.append(spect_mfcc_weighted[np.newaxis, :])
-                spect_seq.append(spect_mfcc[np.newaxis, :])
+                spect_seq.append(spect_mfcc)
             return np.array(spect_seq)
 
         def segmentation_to_labels():
@@ -124,9 +122,15 @@ class TimitDataset(Dataset):
             for i in range(n_chunk):
                 no_class_flag = True
                 for j, seg in enumerate(segmentation_times):
-                    seg_start_pos = math.ceil(segmentation_times[j - 1] / chunk_size) - 1 if j > 0 else 0
-                    seg_end_pos = math.ceil(seg / chunk_size) - 1
-                    if seg_start_pos <= i <= seg_end_pos:
+                    seg_start_chunk = math.ceil(segmentation_times[j - 1] / chunk_size) - 1 if j > 0 else 0
+                    seg_end_chunk = math.ceil(seg / chunk_size) - 1
+                    if seg_start_chunk == i and no_class_flag:
+                        labels[i][phoneme_indexes[j]] = 1.0
+                        no_class_flag = False
+                    elif seg_start_chunk < i < seg_end_chunk :
+                        labels[i][phoneme_indexes[j]] = 1.0
+                        no_class_flag = False
+                    elif i == seg_end_chunk and seg > i * chunk_size + chunk_size / 2:
                         labels[i][phoneme_indexes[j]] = 1.0
                         no_class_flag = False
                 if no_class_flag:

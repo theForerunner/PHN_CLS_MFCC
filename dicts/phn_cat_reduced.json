@@ -1,0 +1,57 @@
+{
+    "stops": [
+        "d",
+        "b",
+        "g",
+        "k",
+        "t",
+        "dx",
+        "p"
+    ],
+    "affricates": [
+        "ch",
+        "jh"
+    ],
+    "fricatives": [
+        "dh",
+        "z",
+        "th",
+        "v",
+        "s",
+        "sh",
+        "f"
+    ],
+    "nasals": [
+        "en",
+        "m",
+        "ng"
+    ],
+    "semivowels_and_glides": [
+        "el",
+        "y",
+        "r",
+        "hh",
+        "w"
+    ],
+    "vowels": [
+        "eh",
+        "ow",
+        "ah",
+        "ao",
+        "oy",
+        "ih",
+        "uh",
+        "er",
+        "ey",
+        "ay",
+        "uw",
+        "aw",
+        "iy",
+        "ae"
+    ],
+    "others": [
+        "sil",
+        "2",
+        "1"
+    ]
+}
